@@ -3,6 +3,7 @@ import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 import authRoutes from './routes/authRoutes';
 import noteRoutes from './routes/noteRoutes';
+import { auth } from './middleware/authMiddleware';  // Add this line
 
 dotenv.config();
 
@@ -16,11 +17,10 @@ mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/adminback
   .catch(err => console.error('MongoDB connection error:', err));
 
 app.use('/auth', authRoutes);
-// app.use('/users', userRoutes);
-// app.use('/audit', auditRoutes);
-app.use('/notes', noteRoutes);
+app.use('/notes', auth, noteRoutes);  // Add auth middleware here
 
 app.listen(PORT, () => {
   console.log(`Admin Backend running on port ${PORT}`);
 });
-export default app;  // Add this line to export the app
+
+export default app;
