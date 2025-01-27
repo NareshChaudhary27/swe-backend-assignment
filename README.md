@@ -48,4 +48,4 @@ This project consists of two independent backend services:
 1. Clone the repository:
 ```bash
 git clone https://github.com/NareshChaudhary27/swe-backend-assignment.git
-cd swe-backend-project
+cd swe-backend
