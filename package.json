@@ -1,0 +1,9 @@
+{
+  "devDependencies": {
+    "@types/bcryptjs": "^2.4.6"
+  },
+  "dependencies": {
+    "@types/axios": "^0.9.36",
+    "axios": "^1.7.9"
+  }
+}
