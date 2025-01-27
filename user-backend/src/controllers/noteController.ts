@@ -1,4 +1,4 @@
-// src/controllers/noteController.ts
+
 import { Request, Response } from 'express';
 import { Note } from '../models/Note';
 

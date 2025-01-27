@@ -15,10 +15,10 @@ const UserSchema = new mongoose.Schema({
   password: { 
     type: String, 
     required: true,
-    select: false  // This ensures password isn't returned in normal queries
+    select: false 
   }
 }, {
-  timestamps: true  // Adds createdAt and updatedAt fields
+  timestamps: true 
 });
 
 export const User = mongoose.model('User', UserSchema);

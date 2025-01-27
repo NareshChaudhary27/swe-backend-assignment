@@ -1,4 +1,4 @@
-// src/routes/noteRoutes.ts
+
 import express, { Router } from 'express';
 import { getNotes, createNote, updateNote, deleteNote } from '../controllers/noteController';
 
