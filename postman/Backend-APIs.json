@@ -1,156 +1,205 @@
 {
-    "clientName": "Thunder Client",
-    "collectionName": "swe-backend",
-    "collectionId": "be4acb4f-6f1b-4ade-ae19-eb54f62cf777",
-    "dateExported": "2025-01-27T05:21:47.960Z",
-    "version": "1.2",
-    "folders": [
+    "info": {
+        "_postman_id": "91e67e70-ab49-40ee-9951-0e308d25a0a6",
+        "name": "swe-backend",
+        "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+        "description": ""
+    },
+    "item": [
         {
-            "_id": "458de114-1c76-473c-9c17-2c0f0f2236f3",
             "name": "User Request",
-            "containerId": "",
-            "created": "2025-01-27T04:53:55.643Z",
-            "sortNum": 10000
+            "item": [
+                {
+                    "name": "Register User",
+                    "request": {
+                        "method": "POST",
+                        "url": {
+                            "raw": "http://localhost:3001/auth/register",
+                            "path": [
+                                "auth",
+                                "register"
+                            ],
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "3001"
+                        },
+                        "body": {
+                            "mode": "raw",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            },
+                            "raw": "{\r\n  \"name\": \"Test User\",\r\n  \"email\": \"test@example.com\",\r\n  \"password\": \"password123\"\r\n}"
+                        }
+                    }
+                },
+                {
+                    "name": "Login User",
+                    "request": {
+                        "method": "POST",
+                        "url": {
+                            "raw": "http://localhost:3001/auth/login",
+                            "path": [
+                                "auth",
+                                "login"
+                            ],
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "3001"
+                        },
+                        "body": {
+                            "mode": "raw",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            },
+                            "raw": "{\r\n  \"email\": \"test@example.com\",\r\n  \"password\": \"password123\"\r\n}"
+                        }
+                    }
+                },
+                {
+                    "name": "Create Note",
+                    "request": {
+                        "method": "POST",
+                        "url": {
+                            "raw": "http://localhost:3001/notes",
+                            "path": [
+                                "notes"
+                            ],
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "3001"
+                        },
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{userToken}}"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            },
+                            "raw": "{\r\n  \"title\": \"Test Note\",\r\n  \"description\": \"This is a test note\"\r\n}"
+                        }
+                    }
+                },
+                {
+                    "name": "Get Notes",
+                    "request": {
+                        "method": "GET",
+                        "url": {
+                            "raw": "http://localhost:3001/notes",
+                            "query": [
+                                {
+                                    "key": "Authorization",
+                                    "value": "Bearer {{userToken}}"
+                                }
+                            ],
+                            "variable": [],
+                            "path": [
+                                "notes"
+                            ],
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "3001"
+                        }
+                    }
+                }
+            ]
         },
         {
-            "_id": "d38f2e39-b8bf-4f0f-8e7a-e808c66199c0",
             "name": "Admin Request",
-            "containerId": "",
-            "created": "2025-01-27T05:01:18.626Z",
-            "sortNum": 20000
-        }
-    ],
-    "requests": [
-        {
-            "_id": "ea6898c5-4f02-4ec4-bc17-865a300e3540",
-            "colId": "be4acb4f-6f1b-4ade-ae19-eb54f62cf777",
-            "containerId": "458de114-1c76-473c-9c17-2c0f0f2236f3",
-            "name": "Register User",
-            "url": "http://localhost:3001/auth/register",
-            "method": "POST",
-            "sortNum": 20000,
-            "created": "2025-01-27T04:54:15.312Z",
-            "modified": "2025-01-27T04:54:52.007Z",
-            "headers": [],
-            "body": {
-                "type": "json",
-                "raw": "{\r\n  \"name\": \"Test User\",\r\n  \"email\": \"test@example.com\",\r\n  \"password\": \"password123\"\r\n}",
-                "form": []
-            }
-        },
-        {
-            "_id": "9f1e84ce-d697-4d1e-8835-eb24a87d0801",
-            "colId": "be4acb4f-6f1b-4ade-ae19-eb54f62cf777",
-            "containerId": "458de114-1c76-473c-9c17-2c0f0f2236f3",
-            "name": "Login User",
-            "url": "http://localhost:3001/auth/login",
-            "method": "POST",
-            "sortNum": 30000,
-            "created": "2025-01-27T04:55:07.788Z",
-            "modified": "2025-01-27T04:55:27.546Z",
-            "headers": [],
-            "body": {
-                "type": "json",
-                "raw": "{\r\n  \"email\": \"test@example.com\",\r\n  \"password\": \"password123\"\r\n}",
-                "form": []
-            }
-        },
-        {
-            "_id": "60a70680-89a4-44c6-8ac3-47a208c5c480",
-            "colId": "be4acb4f-6f1b-4ade-ae19-eb54f62cf777",
-            "containerId": "458de114-1c76-473c-9c17-2c0f0f2236f3",
-            "name": "Create Note",
-            "url": "http://localhost:3001/notes",
-            "method": "POST",
-            "sortNum": 40000,
-            "created": "2025-01-27T04:55:46.203Z",
-            "modified": "2025-01-27T05:00:00.979Z",
-            "headers": [
+            "item": [
                 {
-                    "name": "Authorization",
-                    "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2Nzk3MTE5YmI5Y2IwZWIyZjkwMTQxZmUiLCJpYXQiOjE3Mzc5NTM5ODQsImV4cCI6MTczODA0MDM4NH0.fLRxFAkGM21k1lCvER_1Pk2V4GphJGtvYOI5HMVCAww"
-                }
-            ],
-            "body": {
-                "type": "json",
-                "raw": "{\r\n  \"title\": \"Test Note\",\r\n  \"description\": \"This is a test note\"\r\n}",
-                "form": []
-            }
-        },
-        {
-            "_id": "0d969e0b-639e-43f8-a87f-a1a42e48426f",
-            "colId": "be4acb4f-6f1b-4ade-ae19-eb54f62cf777",
-            "containerId": "458de114-1c76-473c-9c17-2c0f0f2236f3",
-            "name": "Get Notes",
-            "url": "http://localhost:3001/notes?Authorization=Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2Nzk3MTE5YmI5Y2IwZWIyZjkwMTQxZmUiLCJpYXQiOjE3Mzc5NTM5ODQsImV4cCI6MTczODA0MDM4NH0.fLRxFAkGM21k1lCvER_1Pk2V4GphJGtvYOI5HMVCAww",
-            "method": "GET",
-            "sortNum": 50000,
-            "created": "2025-01-27T04:58:53.426Z",
-            "modified": "2025-01-27T05:00:18.578Z",
-            "headers": [],
-            "params": [
+                    "name": "Admin Login",
+                    "request": {
+                        "method": "POST",
+                        "url": {
+                            "raw": "http://localhost:3002/auth/login",
+                            "path": [
+                                "auth",
+                                "login"
+                            ],
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "3002"
+                        },
+                        "body": {
+                            "mode": "raw",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            },
+                            "raw": "{\r\n  \"email\": \"admin@example.com\",\r\n  \"password\": \"adminpassword\"\r\n}"
+                        }
+                    }
+                },
                 {
-                    "name": "Authorization",
-                    "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2Nzk3MTE5YmI5Y2IwZWIyZjkwMTQxZmUiLCJpYXQiOjE3Mzc5NTM5ODQsImV4cCI6MTczODA0MDM4NH0.fLRxFAkGM21k1lCvER_1Pk2V4GphJGtvYOI5HMVCAww",
-                    "isPath": false
-                }
-            ]
-        },
-        {
-            "_id": "3198b06a-0983-4397-8ec2-83cd6c74dac6",
-            "colId": "be4acb4f-6f1b-4ade-ae19-eb54f62cf777",
-            "containerId": "d38f2e39-b8bf-4f0f-8e7a-e808c66199c0",
-            "name": "Admin Login",
-            "url": "http://localhost:3002/auth/login",
-            "method": "POST",
-            "sortNum": 60000,
-            "created": "2025-01-27T05:01:40.068Z",
-            "modified": "2025-01-27T05:03:57.454Z",
-            "headers": [],
-            "body": {
-                "type": "json",
-                "raw": "{\r\n  \"email\": \"admin@example.com\",\r\n  \"password\": \"adminpassword\"\r\n}",
-                "form": []
-            }
-        },
-        {
-            "_id": "3227c887-2f73-445e-bfb5-bcf1653036fc",
-            "colId": "be4acb4f-6f1b-4ade-ae19-eb54f62cf777",
-            "containerId": "d38f2e39-b8bf-4f0f-8e7a-e808c66199c0",
-            "name": "Get All Users",
-            "url": "http://localhost:3002/users?Authorization=Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3OTZjMjE2YmU1MmE0MzMyMGNhODE1ZCIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTczNzk1NDQ2OCwiZXhwIjoxNzM3OTU4MDY4fQ.vnmpIteiuk8QsWnwrmAxmrETlo3E9ale6IUNU4VzWWU",
-            "method": "GET",
-            "sortNum": 70000,
-            "created": "2025-01-27T05:04:23.617Z",
-            "modified": "2025-01-27T05:07:58.014Z",
-            "headers": [],
-            "params": [
+                    "name": "Get All Users",
+                    "request": {
+                        "method": "GET",
+                        "url": {
+                            "raw": "http://localhost:3002/users",
+                            "query": [
+                                {
+                                    "key": "Authorization",
+                                    "value": "Bearer {{adminToken}}"
+                                }
+                            ],
+                            "variable": [],
+                            "path": [
+                                "users"
+                            ],
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "3002"
+                        }
+                    }
+                },
                 {
-                    "name": "Authorization",
-                    "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3OTZjMjE2YmU1MmE0MzMyMGNhODE1ZCIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTczNzk1NDQ2OCwiZXhwIjoxNzM3OTU4MDY4fQ.vnmpIteiuk8QsWnwrmAxmrETlo3E9ale6IUNU4VzWWU",
-                    "isPath": false
-                }
-            ]
-        },
-        {
-            "_id": "d38d3bec-b22b-4089-9d09-6f7c1739e84a",
-            "colId": "be4acb4f-6f1b-4ade-ae19-eb54f62cf777",
-            "containerId": "d38f2e39-b8bf-4f0f-8e7a-e808c66199c0",
-            "name": "Delete User",
-            "url": "http://localhost:3002/users/?Authorization=Bearer ",
-            "method": "DELETE",
-            "sortNum": 80000,
-            "created": "2025-01-27T05:07:05.533Z",
-            "modified": "2025-01-27T05:11:09.739Z",
-            "headers": [],
-            "params": [
-                {
-                    "name": "Authorization",
-                    "value": "Bearer ",
-                    "isPath": false
+                    "name": "Delete User",
+                    "request": {
+                        "method": "DELETE",
+                        "url": {
+                            "raw": "http://localhost:3002/users/{{userid}} ",
+                            "query": [
+                                {
+                                    "key": "Authorization",
+                                    "value": "Bearer {{adminToken}} "
+                                }
+                            ],
+                            "variable": [],
+                            "path": [
+                                "users"
+                            ],
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "3002"
+                        }
+                    }
                 }
             ]
         }
-    ],
-    "ref": "pC7xpxgEM1bh3YUi53TxlR1aJRgzzgWTPpLMVGz4LYMhmUAypfYBO1FybDzPGOsCYgYaa2ia2b1GvBaW56GBHQ"
+    ]
 }
