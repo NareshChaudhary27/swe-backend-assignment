@@ -9,17 +9,35 @@ const bcryptjs_1 = __importDefault(require("bcryptjs"));
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const login = async (req, res, next) => {
     try {
+        // Validate that email and password are provided
         const { email, password } = req.body;
-        // Find user by email
-        const user = await User_1.User.findOne({ email });
+        if (!email || !password) {
+            res.status(400).json({ message: 'Email and password are required' });
+            return;
+        }
+        // Find user by email and explicitly select the password field
+        const user = await User_1.User.findOne({ email }).select('+password');
+        // If no user is found, return error
         if (!user) {
             res.status(401).json({ message: 'Invalid email or password' });
             return;
         }
-        // Compare password
-        const isMatch = await bcryptjs_1.default.compare(password, user.password);
-        if (!isMatch) {
-            res.status(401).json({ message: 'Invalid email or password' });
+        // Ensure we have both passwords before comparing
+        if (!user.password || !password) {
+            res.status(500).json({ message: 'Invalid user data' });
+            return;
+        }
+        // Compare password with additional error handling
+        try {
+            const isMatch = await bcryptjs_1.default.compare(password, user.password);
+            if (!isMatch) {
+                res.status(401).json({ message: 'Invalid email or password' });
+                return;
+            }
+        }
+        catch (bcryptError) {
+            console.error('Password comparison error:', bcryptError);
+            res.status(500).json({ message: 'Error during authentication' });
             return;
         }
         // Generate JWT token
@@ -35,24 +53,32 @@ const login = async (req, res, next) => {
         });
     }
     catch (error) {
-        next(error);
+        console.error('Login error:', error);
+        res.status(500).json({ message: 'Internal server error' });
     }
 };
 exports.login = login;
 const register = async (req, res, next) => {
     try {
         const { name, email, password } = req.body;
+        // Validate input
+        if (!name || !email || !password) {
+            res.status(400).json({ message: 'All fields are required' });
+            return;
+        }
         // Check if user already exists
         const existingUser = await User_1.User.findOne({ email });
         if (existingUser) {
             res.status(400).json({ message: 'User already exists with this email' });
             return;
         }
-        // Create new user
+        // Hash password
+        const hashedPassword = await bcryptjs_1.default.hash(password, 10);
+        // Create new user with hashed password
         const user = new User_1.User({
             name,
             email,
-            password // Password will be hashed by the pre-save middleware
+            password: hashedPassword
         });
         // Save user to database
         await user.save();
@@ -69,7 +95,8 @@ const register = async (req, res, next) => {
         });
     }
     catch (error) {
-        next(error);
+        console.error('Registration error:', error);
+        res.status(500).json({ message: 'Internal server error' });
     }
 };
 exports.register = register;

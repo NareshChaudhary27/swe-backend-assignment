@@ -25,19 +25,38 @@ export const login = async (
   next: NextFunction
 ): Promise<void> => {
   try {
+    // Validate that email and password are provided
     const { email, password } = req.body;
+    if (!email || !password) {
+      res.status(400).json({ message: 'Email and password are required' });
+      return;
+    }
 
-    // Find user by email
-    const user = await User.findOne({ email });
+    // Find user by email and explicitly select the password field
+    const user = await User.findOne({ email }).select('+password');
+    
+    // If no user is found, return error
     if (!user) {
       res.status(401).json({ message: 'Invalid email or password' });
       return;
     }
 
-    // Compare password
-    const isMatch = await bcrypt.compare(password, user.password);
-    if (!isMatch) {
-      res.status(401).json({ message: 'Invalid email or password' });
+    // Ensure we have both passwords before comparing
+    if (!user.password || !password) {
+      res.status(500).json({ message: 'Invalid user data' });
+      return;
+    }
+
+    // Compare password with additional error handling
+    try {
+      const isMatch = await bcrypt.compare(password, user.password);
+      if (!isMatch) {
+        res.status(401).json({ message: 'Invalid email or password' });
+        return;
+      }
+    } catch (bcryptError) {
+      console.error('Password comparison error:', bcryptError);
+      res.status(500).json({ message: 'Error during authentication' });
       return;
     }
 
@@ -58,7 +77,8 @@ export const login = async (
       }
     });
   } catch (error) {
-    next(error);
+    console.error('Login error:', error);
+    res.status(500).json({ message: 'Internal server error' });
   }
 };
 
@@ -70,6 +90,12 @@ export const register = async (
   try {
     const { name, email, password } = req.body;
 
+    // Validate input
+    if (!name || !email || !password) {
+      res.status(400).json({ message: 'All fields are required' });
+      return;
+    }
+
     // Check if user already exists
     const existingUser = await User.findOne({ email });
     if (existingUser) {
@@ -77,11 +103,14 @@ export const register = async (
       return;
     }
 
-    // Create new user
+    // Hash password
+    const hashedPassword = await bcrypt.hash(password, 10);
+
+    // Create new user with hashed password
     const user = new User({
       name,
       email,
-      password // Password will be hashed by the pre-save middleware
+      password: hashedPassword
     });
 
     // Save user to database
@@ -104,6 +133,7 @@ export const register = async (
       }
     });
   } catch (error) {
-    next(error);
+    console.error('Registration error:', error);
+    res.status(500).json({ message: 'Internal server error' });
   }
 };
