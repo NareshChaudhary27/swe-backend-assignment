@@ -1,0 +1,84 @@
+{
+    "client": "Thunder Client",
+    "collectionName": "Backend Assignment",
+    "dateExported": "2024-01-27T10:00:00.000Z",
+    "version": "1.1",
+    "folders": [],
+    "requests": [
+      {
+        "name": "Register User",
+        "method": "POST",
+        "url": "http://localhost:3001/auth/register",
+        "body": {
+          "type": "json",
+          "raw": "{\"name\":\"Test User\",\"email\":\"test@example.com\",\"password\":\"password123\"}"
+        }
+      },
+      {
+        "name": "User Login",
+        "method": "POST",
+        "url": "http://localhost:3001/auth/login",
+        "body": {
+          "type": "json",
+          "raw": "{\"email\":\"test@example.com\",\"password\":\"password123\"}"
+        }
+      },
+      {
+        "name": "Get User Notes",
+        "method": "GET",
+        "url": "http://localhost:3001/notes",
+        "headers": [
+          {
+            "name": "Authorization",
+            "value": "Bearer {{userToken}}"
+          }
+        ]
+      },
+      {
+        "name": "Create Note",
+        "method": "POST",
+        "url": "http://localhost:3001/notes",
+        "headers": [
+          {
+            "name": "Authorization",
+            "value": "Bearer {{userToken}}"
+          }
+        ],
+        "body": {
+          "type": "json",
+          "raw": "{\"title\":\"Test Note\",\"description\":\"This is a test note\"}"
+        }
+      },
+      {
+        "name": "Admin Login",
+        "method": "POST",
+        "url": "http://localhost:3002/auth/login",
+        "body": {
+          "type": "json",
+          "raw": "{\"email\":\"admin@example.com\",\"password\":\"adminpassword\"}"
+        }
+      },
+      {
+        "name": "Get All Users",
+        "method": "GET",
+        "url": "http://localhost:3002/users",
+        "headers": [
+          {
+            "name": "Authorization",
+            "value": "Bearer {{adminToken}}"
+          }
+        ]
+      },
+      {
+        "name": "Delete User",
+        "method": "DELETE",
+        "url": "http://localhost:3002/users/{{userId}}",
+        "headers": [
+          {
+            "name": "Authorization",
+            "value": "Bearer {{adminToken}}"
+          }
+        ]
+      }
+    ]
+  }
