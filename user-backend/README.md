@@ -1,12 +1,26 @@
-# User Backend
+# User Backend Service
 
-## Setup
-1. npm install
-2. Set up .env file
-3. npm run dev
+Handles user accounts and notes.
+
+## Features
+- User signup and login
+- Create and manage notes
+- Secure data access
 
 ## API Endpoints
-- POST /auth/register - Register user
-- POST /auth/login - Login user
-- GET /notes - Get user notes
-- POST /notes - Create note
+
+### User Authentication
+- Register: `POST /auth/register`
+- Login: `POST /auth/login`
+
+### Notes
+- Get all notes: `GET /notes`
+- Create note: `POST /notes`
+- Update note: `PATCH /notes/:id`
+- Delete note: `DELETE /notes/:id`
+
+## How to Use
+
+1. Start the service:
+```bash
+npm run dev
